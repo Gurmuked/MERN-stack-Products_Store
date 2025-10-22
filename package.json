@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon backend/server.js"
+    "start": "node backend/server.js",
+    "dev": "node --watch backend/server.js"
   },
   "repository": {
     "type": "git",
