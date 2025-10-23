@@ -1,10 +1,18 @@
-
+import {BrowserRouter, Route, Routes} from "react-router-dom"
+import Navbar from "./components/Header"
+import ProductsList from "./components/Noproduct"
+import { Homepage } from "./Pages/Homepage"
+import { CreatePage } from "./Pages/CreatePage"
 function App() {
 
   return (
-    <>
-    <h1>Gurmesa</h1>
-    </>
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Homepage />} />
+        <Route path="/create" element={<CreatePage />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
