@@ -1,6 +1,31 @@
-import React from 'react';
+import { useState } from 'react';
+import { useProductStore } from '../Store/Product';
+
 
 const CreatePage = () => {
+
+  	const [newProduct, setNewProduct] = useState({
+		name: "",
+		price: "",
+		image: "",
+	  });
+
+  const { createProduct } = useProductStore();
+
+  const handleAddProduct = async () => {
+
+    const { success, message } = await createProduct(newProduct);
+    console.log(success, message);
+
+      // if (!success) {
+      //   setAlert({ type: "error", message });
+      // } else {
+      //   setAlert({ type: "success", message });
+      //   setNewProduct({ name: "", price: "", image: "" });
+      // }
+      console.log(newProduct)
+   };
+
   return (
     <section className="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen px-4">
       <h1 className="text-4xl font-bold text-center mb-8 text-white">Create New Product</h1>
@@ -11,23 +36,29 @@ const CreatePage = () => {
             <input
               placeholder="Product Name"
               className="bg-transparent border border-gray-700 rounded-md px-4 py-2 text-white placeholder-gray-400"
+              value={newProduct.name}
+							onChange={(e) => setNewProduct({ ...newProduct, name: e.target.value })}
             />
 
             <input
               placeholder="Price"
               type="number"
               className="bg-transparent border border-gray-700 rounded-md px-4 py-2 text-white placeholder-gray-400"
+            	value={newProduct.price}
+							onChange={(e) => setNewProduct({ ...newProduct, price: e.target.value })}
             />
 
             <input
               placeholder="Image URL"
               className="bg-transparent border border-gray-700 rounded-md px-4 py-2 text-white placeholder-gray-400"
+              value={newProduct.image}
+						  onChange={(e) => setNewProduct({ ...newProduct, image: e.target.value })}
             />
 
             <button
               type="button"
               className="w-full bg-blue-400 opacity-70 text-black font-semibold py-2 rounded-md"
-            >
+              onClick={handleAddProduct}>
               Add Product
             </button>
           </div>

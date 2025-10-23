@@ -1,8 +1,8 @@
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Navbar from "./components/Header"
 import ProductsList from "./components/Noproduct"
-import { Homepage } from "./Pages/Homepage"
-import { CreatePage } from "./Pages/CreatePage"
+import Homepage from "./Pages/Homepage"
+import CreatePage from "./Pages/CreatePage"
 function App() {
 
   return (
