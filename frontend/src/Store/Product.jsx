@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-export const useProductStore = create((set) => ({
+const useProductStore = create((set) => ({
   products: [],
   setProducts: (products) => set({ products }),
 
@@ -9,16 +9,28 @@ export const useProductStore = create((set) => ({
       return { success: false, message: "please provide all fields" };
     }
 
-    const res = await fetch("/api/products", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newProduct),
-    });
-    const data = await res.json();
-    set((state) => ({ products: [...state.products, data.data] }));
+    try {
+      const res = await fetch("http://localhost:3000/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newProduct),
+      });
 
-    return { success: true, message: "product created successfully" };
+      const data = await res.json();
+
+      if (!res.ok) {
+        return { success: false, message: data.message || 'Failed to create product' };
+      }
+
+      set((state) => ({ products: [...state.products, data.data] }));
+
+      return { success: true, message: "product created successfully" };
+    } catch (err) {
+      return { success: false, message: err.message || 'Network error' };
+    }
   },
 }))
+
+export default useProductStore;

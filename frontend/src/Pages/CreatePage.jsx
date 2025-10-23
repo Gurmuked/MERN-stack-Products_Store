@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { useProductStore } from '../Store/Product';
+import useProductStore from '../Store/Product.jsx';
 
 
 const CreatePage = () => {
 
   	const [newProduct, setNewProduct] = useState({
-		name: "",
-		price: "",
-		image: "",
+      name: "",
+      price: "",
+      image: "",
 	  });
 
   const { createProduct } = useProductStore();
@@ -17,12 +17,6 @@ const CreatePage = () => {
     const { success, message } = await createProduct(newProduct);
     console.log(success, message);
 
-      // if (!success) {
-      //   setAlert({ type: "error", message });
-      // } else {
-      //   setAlert({ type: "success", message });
-      //   setNewProduct({ name: "", price: "", image: "" });
-      // }
       console.log(newProduct)
    };
 
