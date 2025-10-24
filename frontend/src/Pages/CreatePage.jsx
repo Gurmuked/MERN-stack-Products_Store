@@ -10,18 +10,28 @@ const CreatePage = () => {
       image: "",
 	  });
 
-  const { createProduct } = useProductStore();
+  const createProduct = useProductStore((state) => state.createProduct);
 
   const handleAddProduct = async () => {
 
     const { success, message } = await createProduct(newProduct);
-    console.log(success, message);
+    if(!success){
+      alert(`Error: ${message}`);
+    }
+    else{
+      alert(message);
+      setNewProduct({
+        name:"",
+        price:"",
+        image:""
+      })
+    }
 
       console.log(newProduct)
    };
 
   return (
-    <section className="bg-gray-900 text-white flex flex-col items-center justify-center min-h-screen px-4">
+    <section className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-4">
       <h1 className="text-4xl font-bold text-center mb-8 text-white">Create New Product</h1>
 
       <div className="w-full max-w-lg">

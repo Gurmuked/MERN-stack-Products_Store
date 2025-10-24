@@ -10,7 +10,7 @@ const useProductStore = create((set) => ({
     }
 
     try {
-      const res = await fetch("http://localhost:3000/api/products", {
+  const res = await fetch("/api/products", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,6 +27,19 @@ const useProductStore = create((set) => ({
       set((state) => ({ products: [...state.products, data.data] }));
 
       return { success: true, message: "product created successfully" };
+    } catch (err) {
+      return { success: false, message: err.message || 'Network error' };
+    }
+  },
+  fetchProducts: async () => {
+    try {
+      const res = await fetch('/api/products');
+      const data = await res.json();
+      if (!res.ok) {
+        return { success: false, message: data.message || 'Failed to fetch products' };
+      }
+      set({ products: data.data || [] });
+      return { success: true };
     } catch (err) {
       return { success: false, message: err.message || 'Network error' };
     }

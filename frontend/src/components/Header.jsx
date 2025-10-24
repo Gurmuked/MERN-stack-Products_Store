@@ -3,7 +3,7 @@ import { MdOutlineAddBox,  MdOutlineWbSunny } from "react-icons/md";
 
 export default function Navbar() {
   return (
-    <nav className="bg-gray-900 text-white px-6 py-3 flex justify-between items-center shadow-md">
+    <nav className="h-[10vh] fixed top-0 left-0 right-0 z-10 bg-gray-900 text-white px-6 py-3 flex justify-between items-center shadow-md">
       {/* Left side - Logo */}
       <Link
       to="/"
