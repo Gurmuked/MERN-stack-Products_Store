@@ -44,6 +44,40 @@ const useProductStore = create((set) => ({
       return { success: false, message: err.message || 'Network error' };
     }
   },
+  
+  deleteProduct: async (id) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return { success: false, message: data.message || 'Failed to delete product' };
+      }
+      // remove from local store
+      set((state) => ({ products: state.products.filter((p) => p._id !== id) }));
+      return { success: true };
+    } catch (err) {
+      return { success: false, message: err.message || 'Network error' };
+    }
+  },
+  updateProduct: async (id, productData) => {
+    try {
+      const res = await fetch(`/api/products/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(productData),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        return { success: false, message: data.message || 'Failed to update product' };
+      }
+      set((state) => ({ products: state.products.map((p) => (p._id === id ? data.data : p)) }));
+      return { success: true, data: data.data };
+    } catch (err) {
+      return { success: false, message: err.message || 'Network error' };
+    }
+  },
 }))
 
 export default useProductStore;
