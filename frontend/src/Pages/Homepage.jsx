@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import useProductStore from '../Store/Product'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { FiEdit, FiTrash2 } from 'react-icons/fi'
 
 const Homepage = () => {
@@ -19,6 +19,7 @@ const Homepage = () => {
     if (!res.success) {
       alert(res.message || 'Failed to delete')
     }
+    alert('product deleted successfully')
   }
 
   // Edit modal state
@@ -42,16 +43,17 @@ const Homepage = () => {
       alert(res.message || 'Failed to update')
       return
     }
+   alert('product updated successfully')
     setIsEditing(false)
   }
 
   return (
     <>
-    <section className="min-h-screen flex flex-col items-center justify-center px-4 text-white pb-8 pt-[12vh]">
+    <section className="min-h-screen bg-gray-900 text-white flex flex-col items-center justify-center px-4 text-white pb-8 pt-[12vh]">
       <h2 className="text-2xl text-sky-400 font-semibold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-2xl">Current Products</h2>
 
       {products && products.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-5xl">
+        <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-6 w-full max-w-5xl">
           {products.map((p) => (
             <div key={p._id} className="bg-gray-800 rounded-md p-0 shadow relative overflow-hidden">
               <img src={p.image} alt={p.name} className="w-full h-40 object-cover" />
